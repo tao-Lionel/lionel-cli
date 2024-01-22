@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "wt": "./bin/index.js"
+    "lionel": "./bin/index.js"
   },
   "dependencies": {
     "chalk": "4.1.0",

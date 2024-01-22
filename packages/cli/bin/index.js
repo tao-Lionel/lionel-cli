@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 const program = require('commander')
+const inquire = require('inquirer')
+const chalk = require('chalk')
 const { create } = require('../lib/create/create.js')
 
 program
   .command("create <app-name>")
   .description('新建项目')
-  .option('-p xx')
   .action((name, options) => {
     create(name, options)
   })
@@ -14,46 +15,48 @@ program
 program
   .command('add <page-name>')
   .description('添加页面')
-  .action((name, options) => {
-    require('../lib/add/add.js')(name, options)
+  .action(async (name, options) => {
+    const { path } = await inquire.prompt([{
+      name: 'path',
+      message: '请输入当前页面路径(如：my/first/index)'
+    }])
+
+    if (!path) {
+      console.log(`❌ 文件路径不能为空`)
+      return
+    }
+
+
+    // 选择页面类型
+    const { type } = await inquire.prompt([{
+      name: 'type',
+      type: 'list',
+      message: '请选择页面类型',
+      choices: [
+        '列表', '详情',
+      ]
+    }])
+
+    const typeObj = {
+      列表: ['普通列表', '树状列表'],
+      详情: ['普通详情', '特殊详情'],
+    }
+
+    const { detailType } = await inquire.prompt([{
+      name: 'detailType',
+      message: `${type} 类型选择`,
+      type: 'list',
+      choices: typeObj[type]
+    }])
+
+    require('../lib/add/add.js')(name, options, detailType, path)
   })
 
+program.on('--help', () => {
+  console.log()
+  console.log(`  Run ${chalk.cyan(`lionel <command> --help`)} for detailed usage of given command.`)
+  console.log()
+})
 
 program.parse(process.argv)
 
-// async function (argv) {
-//   console.log('argv:', argv)
-//   const answers = await inquirerPrompt(argv)
-//   console.log('answers', answers)
-//   const { name, type } = answers
-//   const isMkdirExists = checkMkdirExists(
-//     path.resolve(process.cwd(), `./src/pages/${name}`)
-//   )
-//   if (isMkdirExists) {
-//     console.log(`${name}文件夹已经存在`)
-//   } else {
-//     copyDir(
-//       path.resolve(__dirname, `./template/${type}`),
-//       path.resolve(process.cwd(), `./src/pages/${name}`)
-//     )
-//   }
-
-//   const isMkdirExistsFile = checkMkdirExists(
-//     path.resolve(process.cwd(), `./src/pages/${name}/index.js`)
-//   )
-//   if (isMkdirExistsFile) {
-//     console.log(`${name}/index.js文件已经存在`)
-//   } else {
-//     copyTemplate(
-//       path.resolve(__dirname, `./template/${type}/index.tpl`),
-//       path.resolve(process.cwd(), `./src/pages/${name}/index.js`),
-//       {
-//         name
-//       }
-//     )
-//     install(process.cwd(), answers)
-//   }
-
-
-// }
-// ).argv

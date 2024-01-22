@@ -1,5 +1,5 @@
 <template>
-<h1>普通列表</h1>
+<h1>普通详情</h1>
   <h3>\{{ sum }}</h3>
   <button @click="handelClick">{{ name }}</button>
 </template>
