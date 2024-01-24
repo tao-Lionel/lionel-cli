@@ -1,13 +1,13 @@
 {
   "name": "lionel-cli",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "description": "脚手架",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "_____comment": "npm run git -- 'commit-msg'  so you can push and update by a auto way",
-    "git": "git add . && git commit -m",
-    "postgit": "npm version patch && npm publish && git push --all"
+    "git": "npm version patch  && git add . && git commit -m",
+    "postgit": "npm publish && git push --all"
   },
   "keywords": [],
   "author": "",
