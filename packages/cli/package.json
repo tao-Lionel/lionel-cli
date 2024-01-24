@@ -1,16 +1,18 @@
 {
   "name": "lionel-cli",
-  "version": "2.1.3",
-  "description": "脚手架",
+  "version": "2.1.4",
+  "description": "自用的脚手架",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "_____comment": "npm run git -- 'commit-msg'  so you can push and update by a auto way",
     "git": "npm version patch  && git add . && git commit -m",
     "postgit": "npm publish && git push --all"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "lionel"
+  ],
+  "author": "wt",
   "license": "ISC",
   "bin": {
     "lionel": "./bin/index.js"
