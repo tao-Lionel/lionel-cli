@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const inquire = require('inquirer')
 const chalk = require('chalk')
+// const download = require('download-git-repo')
 const { log } = require('../utils.js')
 
 async function create(name, options) {
@@ -59,6 +60,12 @@ async function create(name, options) {
       console.log(`${log('Error')}`, err)
     }
   })
+
+  // download('flippidippi/download-git-repo-fixture', 'template/test', function (err) {
+  //   if (err) {
+  //     console.log('err', err)
+  //   }
+  // })
 
   console.log(`${log('Success')} 构建成功，请查看对应目录：${chalk.cyan(targetDir)} `)
 

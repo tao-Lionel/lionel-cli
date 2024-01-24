@@ -58,5 +58,9 @@ program.on('--help', () => {
   console.log()
 })
 
+program.version(`lionel-cli ${require('../package.json').version}`)
+
+program.name('lionel').usage(`<command> [option]`)
+
 program.parse(process.argv)
 
